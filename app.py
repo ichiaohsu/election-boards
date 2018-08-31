@@ -1,16 +1,18 @@
 import falcon
 
 from middleware import SQLAlchemySessionManager
-from boards import BoardResource
+from boards.resources import boards
+from candidates.resources import candidates, cadidates_terms
 from wsgiref import simple_server
 
 app = falcon.API(middleware=[
     SQLAlchemySessionManager(),
 ])
 
-boards = BoardResource()
-app.add_route('/boards/{bid:int}', boards)
+# app.add_route('/boards', boards)
+app.add_route('/candidates', candidates)
+app.add_route('/candidates_terms', candidates_terms)
 
 if __name__ == '__main__':
-    httpd = simple_server.make_server('127.0.0.1', 8000, app)
+    httpd = simple_server.make_server('127.0.0.1', 8080, app)
     httpd.serve_forever()

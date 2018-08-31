@@ -6,11 +6,14 @@ from sqlalchemy.orm import relationship
 
 Model = declarative_base()
 
-class Boards(Model):
+class Board(Model):
     __tablename__ = 'boards'
 
     id = Column(Integer, primary_key=True)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow())
+    address = Column(String)
+    cadidate = Column()
+    took_at = Column(DateTime)
+    uploaded_at = Column(DateTime, default=datetime.datetime.utcnow())
     # contributor_id = Column(UUID, ForeignKey('contributors.id'))
     # contibuted_by = relationship('Contributors', backref='boards')
 
@@ -19,6 +22,12 @@ class Boards(Model):
 
     def __json__(self):
         return ['song', 'src', 'type', 'created_at']
+
+class Candidate(Model):
+    __tablename__ = 'candidates'
+
+    id = Column(Integer, primary_key=True)
+    
 # class Contributors(base):
 #     __tablename__ = 'contributors'
 
